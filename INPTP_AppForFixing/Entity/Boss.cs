@@ -8,10 +8,16 @@ namespace INPTP_AppForFixing
 {
     public class Boss : Employee
     {
+
         private HashSet<Employee> employees;
         private Department department;
         private double perEmplSalaryBonus;
 
+
+        /// <summary>
+        /// Constructor for Boss class.
+        /// </summary>
+        /// <param name="department">Department under boss control.</param>
         public Boss(Department department)
         {
             employees = new HashSet<Employee>();
@@ -20,9 +26,9 @@ namespace INPTP_AppForFixing
 
 
         /// <summary>
-        /// Method which set salary bonus.
+        /// Method which set salary bonus for each employee.
         /// </summary>
-        /// <param name="salaryBonus">Value of salary bonus.</param>
+        /// <param name="salaryBonus">The value of salary bonus for each employee.</param>
         public void SetSalaryBonus(double salaryBonus)
         {
             perEmplSalaryBonus = salaryBonus;
@@ -30,18 +36,18 @@ namespace INPTP_AppForFixing
 
 
         /// <summary>
-        /// Method on insert employee.
+        /// Method on add employee under boss control.
         /// </summary>
-        /// <param name="empl">Employee which is add.</param>
+        /// <param name="empl">Employee which is add under boss control.</param>
         public void InsertEmpl(Employee empl)
         {
             employees.Add(empl);
         }
 
         /// <summary>
-        /// Method on remove employee.
+        /// Method on remove employee from boss control.
         /// </summary>
-        /// <param name="empl">Employee which is remove.</param>
+        /// <param name="empl">Employee which is remove from boss control.</param>
         public void PurgeEmpl(Employee empl)
         {
             employees.Remove(empl);
@@ -49,7 +55,7 @@ namespace INPTP_AppForFixing
 
 
         /// <summary>
-        /// Method
+        /// Method which return if employess is under boss control.
         /// </summary>
         /// <param name="empl"></param>
         /// <returns>Return true if employee is find. Else return false.  </returns>
@@ -60,9 +66,9 @@ namespace INPTP_AppForFixing
 
 
         /// <summary>
-        /// Method which return set of employees.
+        /// Method which return all employees.
         /// </summary>
-        /// <returns>Return al employees.</returns>
+        /// <returns>Return all employees in HashSet.</returns>
         public ISet<Employee> GetEmployees()
         {
             return new HashSet<Employee>(employees);
@@ -70,27 +76,27 @@ namespace INPTP_AppForFixing
 
 
         /// <summary>
-        /// Method which return count of employees.
+        /// Property for get count of employees.
         /// </summary>
-        /// <returns>Return count of employees..</returns>
+        /// <returns>Return count of employees.</returns>
         public int EmployeeCount
         {
             get { return employees.Count; }
         }
-
+            
         /// <summary>
-        /// Method which calculate base year salary and subemployee bonus.
+        /// Method which calculate year salary and subemployee bonus (include boss salary).
         /// </summary>
-        /// <returns>Return calculated value.</returns>
+        /// <returns>Return value of year department salary.</returns>
         public override double CalcYearlySalaryCZK()
         {
             return (base.CalcYearlySalaryCZK() + (EmployeeCount*perEmplSalaryBonus*12));
         }
 
         /// <summary>
-        /// Method calculate yearly income of all employees.
+        /// Method calculate yearly income of all employees (with VAT).
         /// </summary>
-        /// <returns>Return calculated value.</returns>
+        /// <returns>Return calculate yearly income after tax.</returns>
         public override double CalcYearlyIncome()
         {
             return base.CalcYearlyIncome() + (EmployeeCount*perEmplSalaryBonus * (1-TaxRate));
